@@ -11,13 +11,13 @@ Image::Image (const Image& img) {
   this->HDR = img.HDR;  // Assignment operator is really useful!
   // We have to allocate new memory here
   int num_pixels = img.HDR.width() * img.HDR.height();
-  this->PIX = new Pixel[num_pixels];
-  copy(img.PIX, img.PIX + num_pixels, this->PIX);
+  this->PIX.reserve(num_pixels);
+  copy(img.PIX.begin(), img.PIX.end(), this->PIX);
 }
 
 // Destructor
 Image::~Image () {
-  delete[] PIX;  // Don't allow memory leaks!
+  PIX.clear();  // Don't allow memory leaks!
 }
 
 Header Image::read_header (ifstream& in) {
@@ -49,9 +49,10 @@ void Image::ignore_comments (ifstream& in) {
 }
 
 // This function allocates memory!
-Pixel* Image::read_pixels (const Header& hdr, ifstream& in) {
+vector<Pixel> Image::read_pixels (const Header& hdr, ifstream& in) {
   int num_pixels = hdr.width() * hdr.height();
-  Pixel* pixels = new Pixel[num_pixels];
+  vector<Pixel> pixels;
+  pixels.reserve(num_pixels);
 
   if (hdr.magic() == "P3") {
     uint r,g,b;
@@ -74,7 +75,7 @@ Pixel* Image::read_pixels (const Header& hdr, ifstream& in) {
 
 // accessors
 const Header& Image::header () const { return this->HDR; }
-const Pixel* Image::pixels () const { return this->PIX; }
+const vector<Pixel> Image::pixels () const { return this->PIX; }
 
 // If someone wants to change the header, the Image controls
 // which fields it will to expose
@@ -95,15 +96,15 @@ void Image::write_to (ofstream& out) const {
 
   if (this->HDR.magic() == "P3") {
     for (int i = 0; i < num_pixels; i++) {
-      Pixel* p = this->PIX + i;
-      out << (int) p->r() << ' '
-          << (int) p->g() << ' '
-          << (int) p->b() << ' ';
+      Pixel p = this->PIX[i];
+      out << (int) p.r() << ' '
+          << (int) p.g() << ' '
+          << (int) p.b() << ' ';
     }
   } else {
     for (int i = 0; i < num_pixels; i++) {
-      Pixel* p = this->PIX + i;
-      out << p->r() << p->g() << p->b();
+      Pixel p = this->PIX[i];
+      out << p.r() << p.g() << p.b();
     }
   }
 }
@@ -116,11 +117,11 @@ Image& Image::operator=(const Image& rhs) {
 
   // Pixels are not, we need to make sure there is enough room
   int num_pixels = rhs.HDR.width() * rhs.HDR.height();
-  delete[] this->PIX;
-  this->PIX = new Pixel[num_pixels];
+  this->PIX.clear();
+  this->PIX.reserve(num_pixels);
 
   // And do a complete copy
-  copy(rhs.PIX, rhs.PIX+num_pixels, this->PIX);
+  copy(rhs.PIX.begin(), rhs.PIX.end(), this->PIX);
   return *this;
 }
 

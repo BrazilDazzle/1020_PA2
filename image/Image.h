@@ -7,19 +7,20 @@
 #include <stdlib.h>
 #include <string.h>
 #include <fstream>
+#include <vector>
 
 using namespace std;
 
 class Image {
   private:
     Header HDR;
-    Pixel* PIX;
+    vector<Pixel> PIX;
 
     // Disallow default constructor, why?
     Image ();
 
     // Used by Constructors to build Image
-    static Pixel* read_pixels(const Header&, std::ifstream&);
+    static vector<Pixel> read_pixels(const Header&, std::ifstream&);
     static Header read_header(std::ifstream&);
     static void ignore_comments(std::ifstream&);
 
@@ -42,7 +43,7 @@ class Image {
     const Header& header() const;
     // Const accessor, dont let someone change the Pixel*
     // otherwise memory leaks!
-    const Pixel* pixels() const;
+    const vector<Pixel> pixels() const;
 
     // Assignment - More complicated than you think!
     Image& operator=(const Image& rhs);
