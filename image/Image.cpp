@@ -12,7 +12,7 @@ Image::Image (const Image& img) {
   // We have to allocate new memory here
   int num_pixels = img.HDR.width() * img.HDR.height();
   this->PIX.reserve(num_pixels);
-  copy(img.PIX.begin(), img.PIX.end(), this->PIX);
+  copy(img.PIX.begin(), img.PIX.end(), this->PIX.begin());
 }
 
 // Destructor
@@ -51,8 +51,8 @@ void Image::ignore_comments (ifstream& in) {
 // This function allocates memory!
 vector<Pixel> Image::read_pixels (const Header& hdr, ifstream& in) {
   int num_pixels = hdr.width() * hdr.height();
-  vector<Pixel> pixels;
-  pixels.reserve(num_pixels);
+  vector<Pixel> pixels(num_pixels);
+
 
   if (hdr.magic() == "P3") {
     uint r,g,b;
@@ -121,7 +121,7 @@ Image& Image::operator=(const Image& rhs) {
   this->PIX.reserve(num_pixels);
 
   // And do a complete copy
-  copy(rhs.PIX.begin(), rhs.PIX.end(), this->PIX);
+  copy(rhs.PIX.begin(), rhs.PIX.end(), this->PIX.begin());
   return *this;
 }
 

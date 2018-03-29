@@ -1,0 +1,12 @@
+//---PART 1: Converting from Pixel* to vector<Pixel>---//
+All changes were made inside of image.cpp
+-Every instance of Pixel* return types or parameters changed to vectors
+-copy functions modified using .begin() and .end() iterators
+-'new' replaced with PIX.reserve or with size specification in vector
+  declaration
+-delete[] PIX changed to PIX.clear()
+-pixels[i] syntax left unchanged when converting to vectors
+
+//---PART 2: Constructor initialization list---//
+
+//---PART 3: Sharpen Filter---//
