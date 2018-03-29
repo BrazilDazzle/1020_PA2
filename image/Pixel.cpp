@@ -1,25 +1,19 @@
 #include "Pixel.h"
 
 // Default Constructor
-Pixel::Pixel () {
-  this->R = 0;
-  this->G = 0;
-  this->B = 0;
-}
+Pixel::Pixel () :
+  R(0), G(0), B(0)
+  {}}
 
 // Copy Constructor
-Pixel::Pixel (const Pixel& P) {
-  this->R = P.R;  // Why can I access private members of P?
-  this->G = P.G;
-  this->B = P.B;
-}
+Pixel::Pixel (const Pixel& P) :
+  R(P.R), G(P.G), B(P.B)  // Why can I access private members of P?
+  {}
 
 // Param Constructor
-Pixel::Pixel (uint8_t R, uint8_t G, uint8_t B) {
-  this->R = R;
-  this->G = G;
-  this->B = B;
-}
+Pixel::Pixel (uint8_t R, uint8_t G, uint8_t B) :
+  R(R), G(G), B(B)
+  {}
 
 // Destructor
 Pixel::~Pixel() {}

@@ -1,19 +1,22 @@
 #include "Image.h"
 
 // Param constructor
-Image::Image (ifstream& in) {
-   this->HDR = Image::read_header(in);
-   this->PIX = Image::read_pixels(this->HDR, in);
-}
+Image::Image (ifstream& in) :
+  HDR(Image::read_header(in)), PIX(Image::read_pixels(this->HDR, in)) {}
 
 // Copy constructor
-Image::Image (const Image& img) {
-  this->HDR = img.HDR;  // Assignment operator is really useful!
-  // We have to allocate new memory here
+Image::Image (const Image& img) :
+  HDR(img.HDR)  // Assignment operator is really useful!
+
+  /* Here, because num_pixels is not a member of class Image, we must set
+   * its value after the initializer list. Since PIX.reserve() and copy() are both functions,
+   * they will also have to be placed outside of the initializer list.
+   */
+  {
   int num_pixels = img.HDR.width() * img.HDR.height();
   this->PIX.reserve(num_pixels);
   copy(img.PIX.begin(), img.PIX.end(), this->PIX.begin());
-}
+  }
 
 // Destructor
 Image::~Image () {

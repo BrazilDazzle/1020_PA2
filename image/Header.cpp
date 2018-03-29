@@ -1,28 +1,17 @@
 #include "Header.h"
 
 // Default constructor
-Header::Header () {
-  this->MAGIC = "";
-  this->W = 0;
-  this->H = 0;
-  this->MC = 0;
-}
+Header::Header () :
+  MAGIC(""), W(0), H(0), MC(0) {}
 
 // Copy constructor
-Header::Header (const Header& HDR) {
-  this->MAGIC = HDR.MAGIC; // Why can I access private data here?
-  this->W = HDR.W;
-  this->H = HDR.H;
-  this->MC = HDR.MC;
-}
+Header::Header (const Header& HDR) :
+  MAGIC(HDR.MAGIC), // Why can I access private data here?
+  W(HDR.W), H(HDR.H), MC(HDR.MC) {}
 
 // Param constructor
-Header::Header (std::string m, int w, int h, int mc) {
-  this->MAGIC = m;
-  this->W = w;
-  this->H = h;
-  this->MC = mc;
-}
+Header::Header (std::string m, int w, int h, int mc) :
+  MAGIC(m), W(w), H(h), MC(mc) {}
 
 // Destructor
 Header::~Header () {}

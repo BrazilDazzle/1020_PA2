@@ -1,12 +1,22 @@
+NOTE: All changes to code should be listed in this README for organization.
+All new code should be well-commented and summarized in this README
+
 //---PART 1: Converting from Pixel* to vector<Pixel>---//
-All changes were made inside of image.cpp
+In Image.cpp
 -Every instance of Pixel* return types or parameters changed to vectors
 -copy functions modified using .begin() and .end() iterators
 -'new' replaced with PIX.reserve or with size specification in vector
   declaration
 -delete[] PIX changed to PIX.clear()
 -pixels[i] syntax left unchanged when converting to vectors
+NOTE: Unsure if we need to write driver listed at the end of part 1. Check
+with TA.
 
 //---PART 2: Constructor initialization list---//
+In Header.cpp, Image.cpp, Pixel.cpp
+-All constructors converted to initializer lists
+NOTE: Image::Image (const Image& img) only partially converted because of
+functions like copy and reserve, as well as a non-member variable. Check with
+TA to make sure explanation is good.
 
 //---PART 3: Sharpen Filter---//
