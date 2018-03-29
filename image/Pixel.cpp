@@ -3,7 +3,7 @@
 // Default Constructor
 Pixel::Pixel () :
   R(0), G(0), B(0)
-  {}}
+  {}
 
 // Copy Constructor
 Pixel::Pixel (const Pixel& P) :
