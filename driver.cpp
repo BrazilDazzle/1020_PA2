@@ -33,24 +33,8 @@ int main(int argc, char const *argv[]) {
   Image puppy(in);
   Image puppy2(in);
 
-  //Matrix is a 2d vector of ints
-  //3x3 Sharpen Filter
-  Matrix k3 = {
-    { 0,-1, 0},
-    {-1, 5,-1},
-    { 0,-1, 0}
-  };
-
-  //5x5 Sharpen Filter
-  Matrix k5 = {
-    { 0, 0,-1, 0, 0},
-    { 0, 0,-1, 0, 0},
-    {-1,-1, 9,-1,-1},
-    { 0, 0,-1, 0, 0},
-    { 0, 0,-1, 0, 0}
-  };
-  Filter::sharpen(puppy, k3);
-  Filter::sharpen(puppy2, k5);
+  Filter::sharpen(puppy, Filter::K3);
+  Filter::sharpen(puppy2, Filter::K5);
 
   puppy.write_to(out3);
   puppy2.write_to(out5);
