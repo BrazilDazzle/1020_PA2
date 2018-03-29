@@ -12,3 +12,7 @@ Matrix Filter::K5 =
     {0, 0, -1, 0, 0},
     {0, 0, -1, 0, 0}};
 
+Image& Filter::sharpen(Image& img, Matrix& K){
+    int kSize = sqrt(K.size());
+    
+}
