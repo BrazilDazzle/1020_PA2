@@ -1,7 +1,7 @@
 #ifndef FILTER_H
 #define FILTER_H
 #include "Image.h"
-#include <math.h>
+#include <cmath>
 using namespace std;
 using Matrix = vector<vector<int>>;
 
