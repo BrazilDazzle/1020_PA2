@@ -32,9 +32,9 @@ int main(int argc, char const *argv[]) {
   //Create two of the same image so we can apply both filters
   Image puppy(in);
   cout << "dickbutt" << endl;
-  in.seekg(0, ios::beg);;
+  in.seekg(0, ios::beg);
   Image puppy2(in);
-  cout << puppy2.header().height() << endl;
+  //cout << puppy2.header().height() << endl;
 
   Filter::sharpen(puppy, Filter::K3);
   //cout << "buttdick" << endl;

@@ -15,27 +15,25 @@ Matrix Filter::K5 =
 Image& Filter::sharpen(Image& img, Matrix& K){
     cout << "inside sharpen" << endl;
     int kMid = (K.size()) / 2;
-    cout << kMid << endl;
     Header header(img.header());
-    cout << img.header().height() << endl;
     //vector<Pixel> pixels = img.pixels();
-    //Image* sharpImage(&img);
+    Image& sharpImage(img);
     int i = 0, j = 0;
     for(i = kMid; i + kMid < header.height(); i++){
         //cout << i << "i" << endl;
         for(j = kMid; j + kMid < header.width(); j++){
-            //cout << j << "j" << endl;
-            apply_kernel(img, i, j, K);
+            //cout << img(i, j).r() << endl;
+            img(i, j) = apply_kernel(sharpImage, i, j, K);
+            //cout << img(i, j).r() << endl;
         }
     }
-    return img;
+    return sharpImage;
 }
 
 Pixel Filter::apply_kernel(Image& img, int x, int y, Matrix& k){
     int kSize = (k.size());
     int kMid = kSize / 2;
-    //cout << "inside appy_kernel" << endl;
-    uint8_t red = 0, blue = 0, green = 0;
+    int red = 0, blue = 0, green = 0;
     for(int i = x - kMid; i <= kMid + x; i++){
         for(int j = y - kMid; j < kMid + y; j++){
             /* Checks to see if either the column or 
@@ -47,20 +45,20 @@ Pixel Filter::apply_kernel(Image& img, int x, int y, Matrix& k){
                  * depending on size of the matrix
                  */
                 if(i == x && j == y){
-                    Pixel tempPix = img(i, j);
-                    red += tempPix.r() * ((kSize * 2) - 1);
-                    green += tempPix.g() * ((kSize * 2) - 1);
-                    blue += tempPix.b() * ((kSize * 2) - 1);
+                    //Pixel& tempPix = img(i, j);
+                    red += static_cast<int>(img(i, j).r()) * ((kSize * 2) - 1);
+                    green += static_cast<int>(img(i, j).g()) * ((kSize * 2) - 1);
+                    blue += static_cast<int>(img(i, j).b()) * ((kSize * 2) - 1);
                 }
                     /* This case occurs when either the row or
                      * the column are in line with the center
                      * pixel. Subtracts because of -1
                      */
                     else{
-                        Pixel tempPix = img(i, j);
-                        red -= tempPix.r();
-                        green -= tempPix.g();
-                        blue -= tempPix.b();
+                        //Pixel tempPix = img(i, j);
+                        red -= static_cast<int>(img(i, j).r());
+                        green -= static_cast<int>(img(i, j).g());
+                        blue -= static_cast<int>(img(i, j).b());
                     }
                 
             }
@@ -69,9 +67,12 @@ Pixel Filter::apply_kernel(Image& img, int x, int y, Matrix& k){
              */
         }
     }
-    clamp(0, 255, red);
-    clamp(0, 255, green);
-    clamp(0, 255, blue);
+    red = clamp(0, 255, red);
+    cout << red << " ";
+    green = clamp(0, 255, green);
+    cout << green << " ";
+    blue = clamp(0, 255, blue);
+    cout << blue << endl;
     Pixel pixel(red, green, blue);
     return pixel;
 }
