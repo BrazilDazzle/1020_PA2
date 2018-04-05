@@ -9,14 +9,15 @@ In Image.cpp
   declaration
 -delete[] PIX changed to PIX.clear()
 -pixels[i] syntax left unchanged when converting to vectors
-NOTE: Unsure if we need to write driver listed at the end of part 1. Check
-with TA.
 
 //---PART 2: Constructor initialization list---//
 In Header.cpp, Image.cpp, Pixel.cpp
 -All constructors converted to initializer lists
 NOTE: Image::Image (const Image& img) only partially converted because of
-functions like copy and reserve, as well as a non-member variable. Check with
-TA to make sure explanation is good.
+functions like copy and reserve, as well as a non-member variable.
 
 //---PART 3: Sharpen Filter---//
+Sharpen filter will loop through all non-border rows and columns of the image
+and edit RGB values using either the K3 or K5 Matrix. A copy of the input
+image is created, so that applying the filter won't take in pixels that
+have already been edited.
