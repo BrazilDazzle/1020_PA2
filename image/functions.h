@@ -6,7 +6,7 @@
 
 Image removeNoiseAverage(vector<Image>);
 Image removeNoiseMedian(vector<Image>);
-void openInputFiles(string, vector<ifstream>);
+void openInputFiles(const char*, vector<ifstream>);
 
 
 #endif

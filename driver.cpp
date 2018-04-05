@@ -5,13 +5,22 @@
 #include "image/Header.h"
 #include "image/Image.h"
 #include "image/Filter.h"
+#include "image/functions.h"
 
 int main(int argc, char const *argv[]) {
   if (argc != 3) {
     std::cerr << "USAGE: ./out <in.ppm> <out.ppm>" << std::endl;
     return 1;
   }
-
+  unsigned int k = 0;
+  if(argv[1] == "average"){
+    vector<ifstream> files(10);
+    openInputFiles(argv[1], files);
+    while(k < files.size()){
+      files.at(k).close();
+    } 
+    return 0;
+  }
   // Open files
   std::ifstream in(argv[1]);
 
@@ -49,6 +58,6 @@ int main(int argc, char const *argv[]) {
   in.close();
   out3.close();
   out5.close();
-
+  
   return 0;
 }

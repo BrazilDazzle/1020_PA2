@@ -18,14 +18,18 @@ Image removeNoiseAverage(vector<Image> image){
     return output;
 }
 
-void openInputFiles(string name, vector<ifstream> files){
+void openInputFiles(const char* name, vector<ifstream> files){
     int numFiles = files.size();
     int i = 0;
     stringstream ss;
     while(i < numFiles){
         //Google says this is the best way to clear a stringstream
         ss.str(string());
-        ss << name << "_" << setw(3) << setfill('0') << i + 1;
-        //files[i].open(ss);
+        ss << name << "_" << setw(3) << setfill('0') << i + 1 << ".ppm";
+        files[i].open(ss.str());
+        if(!files[i]){
+            cout << "Error: failed to open input files" << endl;
+            exit(1);
+        }
     }
 }
