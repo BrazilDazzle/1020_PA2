@@ -27,6 +27,8 @@ class Pixel {
 
     // Assignment operator
     Pixel& operator=(const Pixel&);
+    Pixel& operator+=(const Pixel&);
+    Pixel& operator/= (const int& rhs);
 
     // Output operator
     friend std::ostream& operator<<(std::ostream&, const Pixel&);

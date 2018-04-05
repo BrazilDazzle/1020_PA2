@@ -37,6 +37,21 @@ Pixel& Pixel::operator= (const Pixel& rhs) {
   return *this;
 }
 
+// Pixel addition
+Pixel& Pixel::operator+= (const Pixel& rhs) {
+  this->R += rhs.R;
+  this->G += rhs.G;
+  this->B += rhs.B;
+  return *this;
+}
+
+Pixel& Pixel::operator/= (const int& rhs) {
+  this->R /= rhs;
+  this->G /= rhs;
+  this->B /= rhs;
+  return *this;
+}
+
 // Output
 std::ostream& operator<< (std::ostream& out, const Pixel& P) {
  return out  << "("
